@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Home</title>
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+</head>
+<body>
+	<div class="container mt-3">
+		<div class="row">
+			<h3 class="col-10">All Employee</h3>
+			<a th:href="@{/employees/add}" class="btn btn-success col">Add</a>
+		</div>
+		<hr />
+		
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Salary</th>
+					<th>City</th>
+					<th>Birthday</th>
+					<th>Gender</th>
+					<th>Status</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Aung</td>
+					<td>1000000</td>
+					<td>Yangon</td>
+					<td>1997-09-01</td>
+					<td>Male</td>
+					<td>Single</td>
+					<td>
+						<a href="" class="text-primary">Edit</a> | 
+						<a href="" class="text-danger">Delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
