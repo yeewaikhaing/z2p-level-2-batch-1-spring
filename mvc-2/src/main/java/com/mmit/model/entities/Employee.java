@@ -1,17 +1,28 @@
 package com.mmit.model.entities;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
-public class Employee {
+@Entity
+public class Employee implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	@NotBlank(message = "Name is required")
-	@Length(min = 10, message = "Name must be at least 10 letters")
+	//@Length(min = 10, message = "Name must be at least 10 letters")
 	private String name;
 	@Min(value = 10000 , message = "Salary must be at least 10000")
 	private int salary;
@@ -82,6 +93,14 @@ public class Employee {
 	public String toString() {
 		return "Employee [name=" + name + ", salary=" + salary + ", birthday=" + birthday + ", city=" + city
 				+ ", address=" + address + ", gender=" + gender + ", active=" + active + "]";
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	

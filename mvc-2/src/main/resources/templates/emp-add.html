@@ -13,14 +13,15 @@
 		</div>
 		<hr />
 		<form th:action="@{/employees/save}" class="form col-6" th:object="${employee_obj}" method="post">
-			<div class="mb-3 alert alert-danger" th:if="${#fields.hasErrors('global')}">
+			<!-- <div class="mb-3 alert alert-danger" th:if="${#fields.hasErrors('global')}">
 				<p th:each="er : ${#fields.errors('global')}" th:text="${er}"></p>
 			</div>
 			<div class="mb-3 alert alert-danger" th:if="${#fields.hasAnyErrors()}">
 				<ul>
 					<li th:each="err: ${#fields.allErrors()}" th:text="${err}"></li>
 				</ul>
-			</div>
+			</div> -->
+			<input type="hidden" th:field="*{id}"/>
 			<div class="mb-3">
 				<label for="" class="form-label">Name</label>
 				<input type="text" class="form-control" th:field="*{name}"/>
@@ -38,7 +39,9 @@
 			<div class="mb-3">
 				<label for="" class="form-label">City</label>
 				<select name="" id="" class="form-select" th:field="*{city}">
-					
+					<th:block th:each="city: ${cities}">
+						<option th:value="${city}"  th:text="${city}"></option>
+					</th:block>
 				</select>
 			</div>
 			<div class="mb-3 row">
