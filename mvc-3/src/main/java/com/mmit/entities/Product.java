@@ -16,7 +16,7 @@ public class Product implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+	@Column(unique = true)
 	private String name;
 	private int price;
 	@ManyToOne
@@ -24,6 +24,8 @@ public class Product implements Serializable {
 	private Category category;
 	@Enumerated(EnumType.STRING)
 	private ProductType type;
+	
+	private String photo;
 	public Product() {
 		super();
 	}
@@ -57,5 +59,18 @@ public class Product implements Serializable {
 	public void setType(ProductType type) {
 		this.type = type;
 	}
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
    
+	public String getPhotoPath() {
+		if(photo == null && photo.equals(""))
+			return "";
+		
+		return "/upload-photos/" + id + "/" + photo; // /upload-photos/1/admin.png
+	}
+	
 }

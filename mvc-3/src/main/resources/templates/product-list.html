@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Product</title>
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+</head>
+<body>
+	<div class="container">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<div class="container-fluid">
+				
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav">
+						<li class="nav-item"><a class="nav-link" th:classappend="${page eq 'product' ? 'active' : ''}"
+							aria-current="page" th:href="@{/products}">Product</a></li>
+						<li class="nav-item"><a class="nav-link" th:href="@{/categories}" th:classappend="${page eq 'category' ? 'active' : ''}">Category</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class="row mt-3">
+			<div class="col-10">
+				<h3>Product List</h3>
+			</div>
+			<div class="col">
+				<a th:href="@{/products/add}" class="btn btn-success w-50">Add</a>
+			</div>
+		</div>
+		<hr />
+		<table class="table">
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Price</th>
+				<th>Category</th>
+				<th>Type</th>
+				<th>Image</th>
+				<th>Action</th>
+			</tr>
+			<th:block th:each="prod : ${productList}">
+				<tr>
+					<td th:text="${prod.id}">ID</td>
+					<td th:text="${prod.name}">Name</td>
+					<td th:text="${prod.price}">Price</td>
+					<td th:text="${prod.category.name}">Category</td>
+					<td th:text="${prod.type}">Type</td>
+					<td>
+						<img th:src="@{${prod.photoPath}}" alt="No Photo" width="50" height="50" />
+						
+					</td>
+					<td>
+						<a th:href="@{'/products/edit/' + ${prod.id}}" class="text-success">Edit</a> | 
+						<a th:href="@{'/products/delete/' + ${prod.id}}" class="text-danger">Delete</a>
+					</td>
+				</tr>
+			</th:block>
+		</table>
+	</div>
+</body>
+</html>
