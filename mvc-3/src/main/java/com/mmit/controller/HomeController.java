@@ -10,5 +10,6 @@ public class HomeController {
 	public String goHome() {
 		
 		return "redirect:/products";
+		//return "master";
 	}
 }

@@ -1,36 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{master}">
 <head>
 <meta charset="UTF-8">
 <title>Product</title>
-<link rel="stylesheet"
-	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
 </head>
 <body>
-	<div class="container">
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<div class="container-fluid">
-				
-				<div class="collapse navbar-collapse" id="navbarNav">
-					<ul class="navbar-nav">
-						<li class="nav-item"><a class="nav-link" th:classappend="${page eq 'product' ? 'active' : ''}"
-							aria-current="page" th:href="@{/products}">Product</a></li>
-						<li class="nav-item"><a class="nav-link" th:href="@{/categories}" th:classappend="${page eq 'category' ? 'active' : ''}">Category</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-		<div class="row mt-3">
-			<div class="col-10">
-				<h3>Product List</h3>
-			</div>
-			<div class="col">
-				<a th:href="@{/products/add}" class="btn btn-success w-50">Add</a>
-			</div>
-		</div>
-		<hr />
-		<table class="table">
+	<h3 layout:fragment="sub-title">Product List</h3>
+	<a th:href="@{/products/add}" class="btn btn-success" layout:fragment="add-link">Add</a>
+	
+	<table class="table" layout:fragment="content-body">
 			<tr>
 				<th>ID</th>
 				<th>Name</th>
@@ -58,6 +38,5 @@
 				</tr>
 			</th:block>
 		</table>
-	</div>
 </body>
 </html>
