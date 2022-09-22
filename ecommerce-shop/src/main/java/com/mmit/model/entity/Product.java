@@ -86,5 +86,9 @@ public class Product implements Serializable {
 		this.updated_at = updated_at;
 	}
    
+	public String getPhotoUrl() {
+		
+		return "/uploads/" + id + "/" + photo;
+	}
 	
 }
