@@ -1,7 +1,11 @@
 package com.mmit.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class CartController {
@@ -13,8 +17,20 @@ public class CartController {
 	}
 	
 	@GetMapping("/cart/checkout")
-	public String checkoutPage() {
+	public String checkoutPage(ModelMap map) {
+		
+		map.put("name", "Aung Aung");
+		map.put("phone", "0912345678");
+		map.put("email", "aungaung@gmail.com");
+		map.put("address", "Yangon");
 		
 		return "checkout";
+	}
+	
+	@PostMapping("/cart/place-order")
+	public @ResponseBody String makeOrder(@RequestBody Object obj) {
+		System.out.println("obj: " + obj);
+		
+		return "ok";
 	}
 }
