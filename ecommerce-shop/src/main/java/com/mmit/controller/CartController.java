@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mmit.controller.request.OrderRequestData;
+
 @Controller
 public class CartController {
 
@@ -28,8 +30,9 @@ public class CartController {
 	}
 	
 	@PostMapping("/cart/place-order")
-	public @ResponseBody String makeOrder(@RequestBody Object obj) {
-		System.out.println("obj: " + obj);
+	public @ResponseBody String makeOrder(@RequestBody OrderRequestData obj) {
+		System.out.println("items : " + obj.getOrderItems());
+		System.out.println("receiver: " + obj.getReceiver());
 		
 		return "ok";
 	}
