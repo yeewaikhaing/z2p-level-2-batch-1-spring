@@ -31,6 +31,22 @@ public class HomeController {
 		
 		return "index";
 	}
+	@GetMapping("/shop/orders")
+	public String myOrderPage() {
+		
+		return "my-order";
+	}
+	@GetMapping("/shop/login")
+	public String loginPage() {
+		
+		return "login";
+	}
+	
+	@GetMapping("/shop/register")
+	public String registerPage() {
+		
+		return "register";
+	}
 	
 	@GetMapping("/shop/products/{id}")
 	public String singleProduct(ModelMap map, @PathVariable("id") long proudctId) {

@@ -8,6 +8,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,11 +39,17 @@ public class Orders implements Serializable{
 	private String shippingEmail;
 	private String shippingAddress;
 	
+	@Enumerated(EnumType.STRING)
 	private OrderStatus status;
 	@CreationTimestamp
 	private LocalDateTime created_at;
 	@UpdateTimestamp
 	private LocalDateTime updated_at;
+	
+	public void addOrderItem(OrderItem item) {
+		item.setOrder(this);
+		items.add(item);
+	}
 	public long getId() {
 		return id;
 	}

@@ -32,7 +32,14 @@ $(document).ready(function() {
 			data: JSON.stringify(orderInfo),
 			url: '/cart/place-order',
 			success: function(result) {
-				// display
+				if(result == "") {
+					alert("Somethins is wrong. Try again.")
+				}else {
+					localStorage.clear();
+					alert("Your order has been successfully placed. Your OrderId is " + result +"\n Thanks")
+					window.location.href = "/";// <a href="/" />
+				}
+				
 			},
 			error: function(result) {
 				alert("Something is wrong");
