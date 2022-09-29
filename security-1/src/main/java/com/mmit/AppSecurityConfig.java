@@ -30,20 +30,38 @@ public class AppSecurityConfig {
 				.password(encoder.encode("123"))
 				.roles("staff")
 				.build();
+		UserDetails user3 = User
+				.withUsername("customer@gmail.com")
+				.password(encoder.encode("123"))
+				.roles("customer")
+				.build();
 		InMemoryUserDetailsManager provider = new InMemoryUserDetailsManager();
 		provider.createUser(user1);
 		provider.createUser(user2);
+		provider.createUser(user3);
 		
 		return provider;
 	}
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			//.antMatchers("/").permitAll()
+			.antMatchers("/", "/css/**").permitAll()
+			.antMatchers("/product/edit/**", "/product/delete/**").hasRole("admin")
+			.antMatchers("/proudct/add").hasAnyRole("admin", "staff")
 			.anyRequest()
-			.authenticated(); // filter/ authorize
-			//.and()
-			//.formLogin();
+			.authenticated() // filter/ authorize
+			.and()
+			//.httpBasic()
+			.formLogin() // login
+				.loginPage("/login")
+				.permitAll()
+			.and()
+			.logout()
+				.logoutSuccessUrl("/")
+				.permitAll()
+			.and()
+			.exceptionHandling()
+				.accessDeniedPage("/403");
 		
 		return http.build();
 //		http

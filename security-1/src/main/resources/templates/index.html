@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
 	xmlns:th="http://www.thymeleaf.org"
-	>
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 	<title>Home</title>
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
@@ -15,21 +15,27 @@
 			<div class="col">
 				<a th:href="@{/proudct/add}" class="btn btn-primary">Add</a>
 			</div>
+			<div class="col" sec:authorize="isAuthenticated()">
+				<form th:action="@{/logout}" method="post">
+					<button class="btn btn-danger">LogOut</button>
+				</form>
+			</div>
 		</div>
 		<hr />
+		<span sec:authentication="name" sec:authorize="isAuthenticated()">Bob</span>
 		<table class="table">
 			<tr>
 				<td>ID</td>
 				<td>Name</td>
 				<td>Price</td>
-				<td>Action</td>
+				<td sec:authorize="hasRole('admin')">Action</td>
 			</tr>
 			<th:block th:each="prod: ${productList}">
 				<tr>
 					<td th:text="${prod.id}"></td>
 					<td th:text="${prod.name}"></td>
 					<td th:text="${prod.price}"></td>
-					<td>
+					<td sec:authorize="hasRole('admin')">
 						<a th:href="@{'/product/edit/' + ${prod.id}}" class="text-primary">Edit</a> | 
 						<a th:href="@{'/product/delete/' + ${prod.id}}" class="text-danger">Delete</a>
 					</td>
