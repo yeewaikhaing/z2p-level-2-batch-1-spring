@@ -36,13 +36,13 @@ public class HomeController {
 		
 		return "my-order";
 	}
-	@GetMapping("/shop/login")
+	@GetMapping("/login")
 	public String loginPage() {
 		
 		return "login";
 	}
 	
-	@GetMapping("/shop/register")
+	@GetMapping("/register")
 	public String registerPage() {
 		
 		return "register";

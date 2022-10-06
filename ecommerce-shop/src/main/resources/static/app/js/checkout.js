@@ -21,11 +21,15 @@ $(document).ready(function() {
 		// order info
 		let orderInfo = {
 			receiver: receiverInfo,
-			orderItems : cartItemList_obj
+			orderItems : cartItemList_obj,
+			
 		};
 		
 		// call server with ajax
 		$.ajax({
+			beforeSend: function(xhr) {
+    			xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+  			},
 			type: 'POST',
 			contentType: 'application/json',
 			dataType: 'json',

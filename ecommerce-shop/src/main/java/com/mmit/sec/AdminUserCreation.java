@@ -16,17 +16,21 @@ public class AdminUserCreation {
 	private UserService service;
 	@Bean
 	public CommandLineRunner runner() {
-		
-		return (args) -> {
-			long count = service.countUser();
-			if(count == 0) {
-				User user = new User();
-				user.setEmail("admin@gmail.com");
-				user.setName("admin");
-				user.setPassword("123");
-				user.setRole(UserRole.admin);
-				service.save(user);
+		return 
+			args ->  {
+				long count = service.countUser();
+				if(count == 0) {
+					User user = new User();
+					user.setEmail("admin@gmail.com");
+					user.setPassword("admin");
+					user.setRole(UserRole.admin);
+					user.setPhone("09123456789");
+					user.setName("admin");
+					user.setAddress("Yangon");
+					
+					service.save(user);
+				}
 			}
-		};
+		;
 	}
 }

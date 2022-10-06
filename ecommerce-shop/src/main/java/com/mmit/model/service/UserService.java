@@ -1,5 +1,7 @@
 package com.mmit.model.service;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ public class UserService {
 	private UserRepo repo;
 	@Autowired
 	private PasswordEncoder encoder;
+	
 
 	public long countUser() {
 		
@@ -23,5 +26,11 @@ public class UserService {
 	public void save(User user) {
 		user.setPassword(encoder.encode(user.getPassword()));
 		repo.save(user);
+		
+	}
+
+	public User profile(String email) {
+		
+		return repo.findUserByEmail(email);
 	}
 }

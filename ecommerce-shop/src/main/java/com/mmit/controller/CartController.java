@@ -1,5 +1,6 @@
 package com.mmit.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,10 @@ import com.mmit.controller.request.OrderRequestData;
 import com.mmit.model.entity.OrderItem;
 import com.mmit.model.entity.OrderStatus;
 import com.mmit.model.entity.Orders;
+import com.mmit.model.entity.User;
 import com.mmit.model.service.OrderService;
 import com.mmit.model.service.ProductService;
+import com.mmit.model.service.UserService;
 
 @Controller
 public class CartController {
@@ -26,6 +29,8 @@ public class CartController {
 	private ProductService productService;
 	@Autowired
 	private OrderService orderService;
+	@Autowired
+	private UserService userUservice;
 	
 	@GetMapping("/cart/detail")
 	public String home() {
@@ -34,12 +39,13 @@ public class CartController {
 	}
 	
 	@GetMapping("/cart/checkout")
-	public String checkoutPage(ModelMap map) {
+	public String checkoutPage(ModelMap map, Principal principal) {
 		
-		map.put("name", "Aung Aung");
-		map.put("phone", "0912345678");
-		map.put("email", "aungaung@gmail.com");
-		map.put("address", "Yangon");
+		User loginUser = userUservice.profile(principal.getName()); //getname -> email
+		map.put("name", loginUser.getName());
+		map.put("phone", loginUser.getPhone());
+		map.put("email", loginUser.getEmail());
+		map.put("address", loginUser.getAddress());
 		
 		return "checkout";
 	}
@@ -48,6 +54,7 @@ public class CartController {
 	public @ResponseBody String makeOrder(@RequestBody OrderRequestData obj) {
 		
 		try {
+			System.out.println("ok 1....");
 			OrderReceiverData receiver = obj.getReceiver();
 			List<OrderProductData> itemList = obj.getOrderItems();
 			
@@ -59,7 +66,8 @@ public class CartController {
 			new_order.setShippingEmail(receiver.getEmail());
 			new_order.setShippingName(receiver.getName());
 			new_order.setShippingPhone(receiver.getPhone());
-			new_order.setCustomer(null);
+			//User customer = userUservice.profile(principal.getName());
+			//new_order.setCustomer(customer);
 			
 			//add order items
 			for(var item: itemList) {
@@ -77,6 +85,7 @@ public class CartController {
 			return savedOrder.getId() + "";
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			return "";
 		}
 		
